@@ -1,0 +1,71 @@
+{% extends 'site/base.html' %}
+
+{% block content %}
+<div class="movie-detail-container">
+    <!-- Верхняя часть - информация о фильме -->
+    <div class="movie-info">
+        <h1 class="movie-title">{{ movie.title }}</h1>
+
+        <div class="movie-meta">
+            <span class="movie-rating">
+                ★ {{ movie.rating }}/10
+            </span>
+            <span class="movie-year">
+                {{ movie.year }}
+            </span>
+            {% if movie.genre %}
+            <span class="movie-genre">
+                {{ movie.genre }}
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="movie-description">
+            <p>{{ movie.description }}</p>
+        </div>
+    </div>
+
+    <!-- Нижняя часть - форма отзыва -->
+    <div class="review-section">
+        <h2>Оставить отзыв</h2>
+
+        <form method="post" class="review-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_author">Ваше имя:</label>
+                {{ form.author }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_rating">Ваша оценка (1-10):</label>
+                {{ form.rating }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_text">Текст отзыва:</label>
+                {{ form.text }}
+            </div>
+
+            <button type="submit" class="submit-button">Отправить отзыв</button>
+        </form>
+
+        <!-- Список существующих отзывов -->
+        {% if reviews %}
+        <div class="reviews-list">
+            <h3>Отзывы зрителей:</h3>
+            {% for review in reviews %}
+            <div class="review">
+                <div class="review-header">
+                    <span class="review-author">{{ review.author }}</span>
+                    <span class="review-rating">★ {{ review.rating }}/10</span>
+                    <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+                </div>
+                <p class="review-text">{{ review.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

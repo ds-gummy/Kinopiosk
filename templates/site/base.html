@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/movie.css' %}" rel="stylesheet">
+</head>
+<body>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+<div>
+    {% block content1 %}
+    {% endblock %}
+</div>
+<div id="sidebar">
+    <h2>KinoPoisk2.0</h2>
+    <p>Rait and comment any movies</p>
+</div>
+</body>
+</html>

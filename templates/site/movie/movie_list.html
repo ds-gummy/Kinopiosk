@@ -1,0 +1,14 @@
+{% extends "site/base.html" %}
+{% block title %}Movies list{% endblock %}
+{% block content %}
+    <h1>Movies list</h1>
+    {% for movie in movies %}
+        <h2>
+            <a href="{% url 'movies:movie_detail' movie.id %}"> {{ movie.title }}</a>
+        </h2>
+        <p class="date">
+            Год выпуска: {{ movie.year }}
+        </p>
+        {{ movie.description|truncatewords:30|linebreaks }}
+    {% endfor %}
+{% endblock %}
